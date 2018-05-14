@@ -1,0 +1,81 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int add(char a[], char b[], char c[])
+{
+	int i = 0, j = 0, flag = 0;
+	int len_a, len_b;
+
+	memset(c, '\0',1000);
+	len_a = strlen(a);
+	len_b = strlen(b);
+	if (len_a > len_b)
+	{
+		for (i = len_a,j=len_b; i > 0; i--)
+		{
+			if (j > 0)
+			{
+				c[i - 1] = a[i - 1] + b[i - len_a + len_b - 1] - 48 + flag;
+				flag = 0;
+				j--;
+				if (c[i - 1] > '9')
+				{
+					c[i - 1] -= 10;
+					flag = 1;
+				}
+			}
+			else
+			{
+				c[i - 1] = a[i - 1] + flag;
+				flag = 0;
+			}
+		}
+	}
+	else
+	{
+		for (i = len_b, j = len_a; i > 0; i--)
+		{
+			if (j > 0)
+			{
+				c[i - 1] = b[i - 1] + a[i - len_b + len_a - 1] - 48 + flag;
+				flag = 0;
+				j--;
+				if (c[i - 1] > '9')
+				{
+					c[i - 1] -= 10;
+					flag = 1;
+				}
+			}
+			else
+			{
+				c[i - 1] = b[i - 1] + flag;
+				flag = 0;
+			}
+		}
+	}
+	return flag;
+}
+
+int main()
+{
+	int n,i=1,p;
+
+	char a[1000], b[1000],c[1000];
+
+	cin >> n;
+	while (i<=n)
+	{
+		cin >> a >> b;
+		p=add(a, b, c);
+		cout << "Case " << i << ":" << endl << a << " + " << b << " = ";
+		if (p == 1)
+			cout << p;
+		cout << c << endl;
+		if (i != n)
+			cout << endl;
+		i++;
+	}
+
+	return 0;
+}
