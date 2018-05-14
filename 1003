@@ -1,0 +1,42 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+	int j,i,t,n,a;
+	int mb,ms,sta,end;
+	int sum[100000], que[100000];
+
+	cin >> t;
+	for(i=1;i<=t;i++)
+	{
+		if (i != 1)
+			cout << endl;
+		cin >> n;
+		ms = -1000;
+		que[0] = 0;
+		for (j = 0, mb = -1000; j < n; j++)
+		{
+			cin >> a;
+			if (mb < 0)
+			{
+				mb = a;
+				que[j] = j;
+			}
+			else
+			{
+				mb += a;
+				que[j] = que[j - 1];
+			}
+			sum[j] = mb;
+			ms = ms >= mb ? ms : mb;
+		}
+		for (j = 0; j < n; j++)
+			if (sum[j] == ms)
+				break;
+		cout << "Case " << i << ':' << endl << ms << ' ' << que[j]+1 << ' ' << j+1 << endl;
+	}
+
+	return 0;
+}
