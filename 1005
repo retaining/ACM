@@ -1,0 +1,20 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+	int A, B, i, n;
+	int a[49];
+	a[0] = 1; a[1] = 1;
+	while (cin >> A, cin >> B, cin >> n)
+	{
+		if (A == 0 && B == 0 && n == 0)
+			return 0;
+		for (i = 2; i < 49; i++)
+			a[i] = (A * a[i-1] + B * a[i-2]) % 7;
+		cout << a[n%49-1] << endl;
+	}
+
+	return 0;
+}
