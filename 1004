@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+	int n,i,j,k,flag;//j控制col数组，控制现有的颜色，k用于遍历col,flag用于标记当前颜色是否已经存在
+	char tmp[16];
+	char col[100][16];
+	int num[1000];
+	int max;
+	
+	while (cin >> n)
+	{
+		if (n == 0)
+			return 0;
+		getchar();
+		memset(col, '\0', 1600);
+		memset(num, 0, 1000);
+		for (i = 0, j = 0; i < n; i++)
+		{
+			gets_s(tmp);
+			flag = 0;
+			k = 0;
+			while (k < j)
+				if (strcmp(tmp, col[k++]) == 0)
+				{
+					flag = 1;
+					break;
+				}
+			if (flag == 0)
+			{
+				strcpy(col[j], tmp);//把新颜色记录到col中
+				num[j++] = 1;
+			}
+			if(flag == 1)
+				num[k - 1]++;
+		}
+		for (i = 0, max = 0; i <= j; i++)
+			if (num[i] > num[max])
+				max = i;
+		cout << col[max] << endl;
+	}
+
+	return 0;
+}
