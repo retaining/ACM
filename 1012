@@ -1,0 +1,22 @@
+#include<iostream>
+#include<algorithm>
+#include<iomanip>
+using namespace std;
+
+int main()
+{
+	double a[10],b[10];
+
+	a[0] = b[0] = 1;
+	for (int i = 1; i <= 9; i++)
+	{
+		b[i] = b[i-1] / (double)i;
+		a[i] = a[i - 1] + b[i];
+	}
+	cout << "n e" << endl << "- -----------" << endl;
+	for (int i = 0; i <= 2; i++)
+		cout << i << ' ' << a[i] << endl;
+	for (int i = 3; i <= 9; i++)
+		cout << setiosflags(ios::fixed) << setprecision(9) << i << ' ' << a[i] << endl;
+	return 0;
+}
