@@ -1,0 +1,54 @@
+#include<iostream>
+#include<algorithm>
+#include <iomanip>
+using namespace std;
+
+struct trade
+{
+	double bean;
+	double value;
+	double price;
+};
+
+bool big_first(trade i, trade j) { return i.price > j.price ; }
+
+int main()
+{
+	int i = 0;
+	int m, n;
+	double count;
+	trade a[1000];
+	cin >> m >> n;
+	while(m != -1 && n != -1)
+	{
+		i = 0;
+		while (n!=i)
+		{	
+			cin >> a[i].bean >> a[i].value;
+			a[i].price = a[i].bean / a[i].value;
+			i++;
+		}
+		sort(a, a + i, big_first);
+		if (m == 0 || n == 0)
+			count = 0;
+		else
+		{
+			for (i = 0, count = 0; m > 0; i++)
+			{
+				if (m > a[i].value)
+				{
+					count += a[i].bean;
+					m -= a[i].value;
+				}
+				else
+				{
+					count += m * a[i].price;
+					m = 0;
+				}
+			}
+		}
+		cout << setiosflags(ios::fixed) << setprecision(3) << count << endl;
+		cin >> m >> n;
+	}
+	return 0;
+}
