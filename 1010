@@ -1,0 +1,64 @@
+#include<iostream>
+#include<algorithm>
+#include<iomanip>
+using namespace std;
+
+int flag[7][7];
+char map[7][7];
+int success=0;
+int m, n, t;
+
+void visit(int x, int y, int z)
+{
+	if (z > t)
+		return;
+	if (map[x][y] == 'D'&&z == t)
+	{
+		success = 1;
+		return;
+	}
+	else if (map[x][y] == '.' || map[x][y] == 'S')
+	{
+		flag[x][y] = 1;
+		if (flag[x - 1][y] == 0 && x > 0)
+			visit(x - 1, y, z+1);
+		if (flag[x + 1][y] == 0 && x < m)
+			visit(x + 1, y, z+1);
+		if (flag[x][y - 1] == 0 && y > 0)
+			visit(x, y - 1, z+1);
+		if (flag[x][y + 1] == 0 && y < n)
+			visit(x, y + 1, z+1);
+		flag[x][y] = 0;
+	}
+}
+
+int main()
+{
+	int x, y, p, q;//position
+
+	while(cin >> m >> n >> t && m != 0 && n != 0 && t != 0)
+	{
+		success = 0;
+		for (int i = 0; i < m; i++)
+			for (int j = 0; j < n; j++)
+			{
+				cin >> map[i][j];
+				if (map[i][j] == 'S')
+				{
+					x = i; y = j;
+				}
+				if (map[i][j] == 'D')
+				{
+					p = i; q = j;
+				}
+				flag[i][j] = 0;
+			}
+		/*读入地图并找到初始位置*/
+		if((x+p+y+q+t)%2==0)
+			visit(x, y, 0);
+		if (success == 1)
+			cout << "YES" << endl;
+		else
+			cout << "NO" << endl;
+	}
+}
